@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My Channels" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+<div class="row">
+<div class="col-lg-2 col-md-3 mb-3">
+<div class="list-group shadow-sm">
+<a href="{% url 'dashboard:index' %}" class="list-group-item list-group-item-action">{% trans "Overview" %}</a>
+<a href="{% url 'dashboard:channels' %}" class="list-group-item list-group-item-action active">{% trans "My Channels" %}</a>
+<a href="{% url 'dashboard:videos' %}" class="list-group-item list-group-item-action">{% trans "My Videos" %}</a>
+<a href="{% url 'dashboard:campaigns' %}" class="list-group-item list-group-item-action">{% trans "My Campaigns" %}</a>
+<a href="{% url 'dashboard:wallet' %}" class="list-group-item list-group-item-action">{% trans "Wallet" %}</a>
+<a href="{% url 'analytics:dashboard' %}" class="list-group-item list-group-item-action">{% trans "Analytics" %}</a>
+<a href="{% url 'dashboard:settings' %}" class="list-group-item list-group-item-action">{% trans "Settings" %}</a>
+</div>
+</div>
+<div class="col-lg-10 col-md-9">
+<div class="d-flex justify-content-between mb-4">
+<h1 class="h3">{% trans "My Channels" %}</h1>
+<a href="{% url 'channels:add' %}" class="btn btn-primary"><i class="bi bi-plus"></i> {% trans "Add Channel" %}</a>
+</div>
+<div class="table-responsive card shadow-sm border-0">
+<table class="table table-hover mb-0">
+<thead class="table-light">
+<tr>
+<th>{% trans "Name" %}</th>
+<th>{% trans "Status" %}</th>
+<th>{% trans "Language" %}</th>
+<th>{% trans "Created" %}</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+{% for ch in channels %}
+<tr>
+<td>{{ ch.name }}</td>
+<td><span class="badge bg-{% if ch.status == 'approved' %}success{% elif ch.status == 'pending' %}warning{% else %}secondary{% endif %}">{{ ch.get_status_display }}</span></td>
+<td>{{ ch.language|upper }}</td>
+<td>{{ ch.created_at|date:"Y-m-d" }}</td>
+<td><a href="{{ ch.get_absolute_url }}" class="btn btn-sm btn-outline-primary">{% trans "View" %}</a></td>
+</tr>
+{% empty %}
+<tr><td colspan="5" class="text-center text-muted py-4">{% trans "No channels yet." %}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

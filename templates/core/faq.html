@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "FAQ" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-5">
+<h1 class="h2 mb-4">{% trans "Frequently Asked Questions" %}</h1>
+<div class="accordion" id="faq">
+<div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#f1">{% trans "Does KSGP Video sell YouTube views?" %}</button></h2>
+<div id="f1" class="accordion-collapse collapse show" data-bs-parent="#faq"><div class="accordion-body">{% trans "No. We only provide advertising and discovery on our own platform. We never sell views, watch time, likes or subscribers." %}</div></div></div>
+<div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f2">{% trans "What are credits?" %}</button></h2>
+<div id="f2" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">{% trans "Credits are an internal balance used to pay for ads on KSGP Video. They cannot be withdrawn as cash." %}</div></div></div>
+<div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f3">{% trans "How do campaigns work?" %}</button></h2>
+<div id="f3" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">{% trans "You create a campaign, reserve budget from your credits, and after approval your ad can appear on the platform. You pay for impressions (CPM) or clicks (CPC)." %}</div></div></div>
+</div></div>
+{% endblock %}

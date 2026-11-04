@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Privacy Policy" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-5">
+<h1 class="h2 mb-4">{% trans "Privacy Policy" %}</h1>
+<div class="card border-0 shadow-sm"><div class="card-body">
+<p>{% trans "This Privacy Policy explains how KSGP Video collects, uses and protects your personal data (GDPR-oriented)." %}</p>
+<h3>{% trans "Data we collect" %}</h3>
+<ul>
+<li>{% trans "Account data (email, profile information)" %}</li>
+<li>{% trans "Usage data (pages viewed, campaigns, interactions on our platform)" %}</li>
+<li>{% trans "Payment data processed by Stripe (we do not store full card numbers)" %}</li>
+<li>{% trans "Technical data (IP address, browser type) for security and analytics" %}</li>
+</ul>
+<h3>{% trans "How we use data" %}</h3>
+<p>{% trans "To provide the service, process payments, show relevant ads on our platform, improve the product, and comply with legal obligations." %}</p>
+<h3>{% trans "Your rights" %}</h3>
+<p>{% trans "You may request access, correction, deletion or export of your personal data. Contact support to exercise these rights." %}</p>
+<h3>{% trans "Cookies" %}</h3>
+<p>{% trans "We use essential cookies for authentication and preferences. See our Cookie Policy." %}</p>
+<p class="text-muted small mt-4">{% trans "Last updated:" %} {% now "Y-m-d" %}</p>
+</div></div></div>
+{% endblock %}

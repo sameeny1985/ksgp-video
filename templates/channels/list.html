@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Channels" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-4">
+<h1 class="h3 mb-4">{% trans "Channels" %}</h1>
+<div class="row g-4">
+{% for ch in channels %}
+<div class="col-md-6 col-lg-3">
+<div class="card h-100 shadow-sm border-0 text-center">
+<div class="card-body">
+<h5 class="card-title">{{ ch.name }}</h5>
+<p class="small text-muted">{{ ch.description|truncatewords:15 }}</p>
+<a href="{{ ch.get_absolute_url }}" class="btn btn-sm btn-outline-primary">{% trans "View" %}</a>
+</div></div></div>
+{% empty %}
+<div class="col-12 text-center text-muted py-5">{% trans "No channels yet." %}</div>
+{% endfor %}
+</div></div>
+{% endblock %}

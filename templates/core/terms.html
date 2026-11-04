@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Terms of Service" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-5">
+<h1 class="h2 mb-4">{% trans "Terms of Service" %}</h1>
+<div class="card border-0 shadow-sm"><div class="card-body prose">
+<p>{% trans "Welcome to KSGP Video. By accessing or using our platform you agree to these Terms of Service." %}</p>
+<h3>{% trans "1. Description of Service" %}</h3>
+<p>{% trans "KSGP Video is a video discovery and creator advertising platform. We help creators promote their YouTube content through on-platform advertising. We do not host videos, sell YouTube views, watch time, likes, comments or subscribers." %}</p>
+<h3>{% trans "2. Accounts" %}</h3>
+<p>{% trans "You are responsible for maintaining the confidentiality of your account and for all activities under your account." %}</p>
+<h3>{% trans "3. Advertising Credits" %}</h3>
+<p>{% trans "Credits are an internal balance used only to pay for advertising services on KSGP Video. Credits are non-withdrawable and are not a cryptocurrency or stored-value instrument." %}</p>
+<h3>{% trans "4. Prohibited Conduct" %}</h3>
+<p>{% trans "You may not use the platform to manipulate YouTube metrics, run fake engagement schemes, post illegal content, or violate YouTube Terms of Service." %}</p>
+<h3>{% trans "5. Content Moderation" %}</h3>
+<p>{% trans "We reserve the right to review, approve, reject or remove channels, videos and campaigns that violate our policies." %}</p>
+<h3>{% trans "6. Limitation of Liability" %}</h3>
+<p>{% trans "The service is provided as-is. We are not responsible for third-party platforms such as YouTube." %}</p>
+<h3>{% trans "7. Changes" %}</h3>
+<p>{% trans "We may update these Terms. Continued use after changes constitutes acceptance." %}</p>
+<p class="text-muted small mt-4">{% trans "Last updated:" %} {% now "Y-m-d" %}</p>
+</div></div></div>
+{% endblock %}

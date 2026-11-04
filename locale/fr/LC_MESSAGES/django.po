@@ -1,0 +1,462 @@
+# KSGP Video UI translations - fr
+msgid ""
+msgstr ""
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"MIME-Version: 1.0\n"
+
+msgid "Discover Videos. Connect with Creators. Promote Your Content."
+msgstr "Découvrez des vidéos. Connectez-vous aux créateurs. Promouvez votre contenu."
+
+msgid "Home"
+msgstr "Accueil"
+
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+msgid "Login"
+msgstr "Connexion"
+
+msgid "Sign Up"
+msgstr "S'inscrire"
+
+msgid "Logout"
+msgstr "Déconnexion"
+
+msgid "Discover"
+msgstr "Découvrir"
+
+msgid "Advertise"
+msgstr "Annoncer"
+
+msgid "Explore Videos"
+msgstr "Explorer les vidéos"
+
+msgid "Promote Your Content"
+msgstr "Promouvoir votre contenu"
+
+msgid "Join as a Creator"
+msgstr "Rejoindre en tant que créateur"
+
+msgid "Join Now"
+msgstr "Join Now"
+
+msgid "My Channels"
+msgstr "Mes chaînes"
+
+msgid "My Videos"
+msgstr "Mes vidéos"
+
+msgid "My Campaigns"
+msgstr "Mes campagnes"
+
+msgid "Wallet"
+msgstr "Portefeuille"
+
+msgid "Analytics"
+msgstr "Analytique"
+
+msgid "Settings"
+msgstr "Paramètres"
+
+msgid "New Campaign"
+msgstr "Nouvelle campagne"
+
+msgid "Buy Credits"
+msgstr "Acheter des crédits"
+
+msgid "Buy Now"
+msgstr "Acheter"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "Terms of Service"
+msgstr "Conditions d'utilisation"
+
+msgid "Privacy Policy"
+msgstr "Politique de confidentialité"
+
+msgid "Cookie Policy"
+msgstr "Politique de cookies"
+
+msgid "Advertising Policy"
+msgstr "Politique publicitaire"
+
+msgid "Creator Guidelines"
+msgstr "Directives pour les créateurs"
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "About Us"
+msgstr "À propos"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Watch on YouTube"
+msgstr "Regarder sur YouTube"
+
+msgid "Sponsored"
+msgstr "Sponsorisé"
+
+msgid "Channels"
+msgstr "Chaînes"
+
+msgid "Videos"
+msgstr "Vidéos"
+
+msgid "Active Campaigns"
+msgstr "Campagnes actives"
+
+msgid "Available Credits"
+msgstr "Crédits disponibles"
+
+msgid "Total Impressions"
+msgstr "Impressions totales"
+
+msgid "Total Clicks"
+msgstr "Clics totaux"
+
+msgid "Average CTR"
+msgstr "CTR moyen"
+
+msgid "Total Spent"
+msgstr "Total dépensé"
+
+msgid "Campaign Performance"
+msgstr "Campaign Performance"
+
+msgid "Export CSV"
+msgstr "Export CSV"
+
+msgid "Add Channel"
+msgstr "Ajouter une chaîne"
+
+msgid "Add Video"
+msgstr "Ajouter une vidéo"
+
+msgid "Create Campaign"
+msgstr "Créer une campagne"
+
+msgid "Overview"
+msgstr "Aperçu"
+
+msgid "Mark all read"
+msgstr "Mark all read"
+
+msgid "Mark read"
+msgstr "Mark read"
+
+msgid "No channels yet."
+msgstr "No channels yet."
+
+msgid "No videos yet."
+msgstr "No videos yet."
+
+msgid "No campaigns yet."
+msgstr "No campaigns yet."
+
+msgid "No notifications."
+msgstr "No notifications."
+
+msgid "Payment Successful"
+msgstr "Paiement réussi"
+
+msgid "Go to Wallet"
+msgstr "Aller au portefeuille"
+
+msgid "Popular"
+msgstr "Populaire"
+
+msgid "Get Started"
+msgstr "Commencer"
+
+msgid "Choose Plan"
+msgstr "Choisir"
+
+msgid "View All"
+msgstr "Voir tout"
+
+msgid "View Channel"
+msgstr "View Channel"
+
+msgid "Visit Channel"
+msgstr "Visit Channel"
+
+msgid "Platform"
+msgstr "Platform"
+
+msgid "Legal"
+msgstr "Legal"
+
+msgid "Creators"
+msgstr "Creators"
+
+msgid "All rights reserved."
+msgstr "All rights reserved."
+
+msgid "Important:"
+msgstr "Important:"
+
+msgid "About Credits"
+msgstr "About Credits"
+
+msgid "Recent Transactions"
+msgstr "Recent Transactions"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Amount"
+msgstr "Amount"
+
+msgid "Balance After"
+msgstr "Balance After"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Budget"
+msgstr "Budget"
+
+msgid "Spent"
+msgstr "Spent"
+
+msgid "Impressions"
+msgstr "Impressions"
+
+msgid "Clicks"
+msgstr "Clicks"
+
+msgid "CTR"
+msgstr "CTR"
+
+msgid "Remaining"
+msgstr "Remaining"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Title"
+msgstr "Title"
+
+msgid "Channel"
+msgstr "Channel"
+
+msgid "Language"
+msgstr "Language"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "Edit Channel"
+msgstr "Edit Channel"
+
+msgid "Edit Video"
+msgstr "Edit Video"
+
+msgid "Create Advertising Campaign"
+msgstr "Create Advertising Campaign"
+
+msgid "Create & Submit for Review"
+msgstr "Create & Submit for Review"
+
+msgid "When you create a campaign, the full budget will be reserved from your available credits. The campaign will be reviewed before it goes live."
+msgstr "When you create a campaign, the full budget will be reserved from your available credits. The campaign will be reviewed before it goes live."
+
+msgid "This platform only tracks advertising impressions and clicks that happen on KSGP Video. We never sell or guarantee YouTube views, watch time, likes or subscribers."
+msgstr "This platform only tracks advertising impressions and clicks that happen on KSGP Video. We never sell or guarantee YouTube views, watch time, likes or subscribers."
+
+msgid "All metrics are platform-only (KSGP Video impressions & clicks), not YouTube analytics."
+msgstr "All metrics are platform-only (KSGP Video impressions & clicks), not YouTube analytics."
+
+msgid "Credits are only for advertising on KSGP Video (impressions & clicks on our platform). We do not sell YouTube views, watch time, likes, comments or subscribers."
+msgstr "Credits are only for advertising on KSGP Video (impressions & clicks on our platform). We do not sell YouTube views, watch time, likes, comments or subscribers."
+
+msgid "Does KSGP Video sell YouTube views?"
+msgstr "Does KSGP Video sell YouTube views?"
+
+msgid "What are credits?"
+msgstr "What are credits?"
+
+msgid "How do campaigns work?"
+msgstr "How do campaigns work?"
+
+msgid "No. We only provide advertising and discovery on our own platform. We never sell views, watch time, likes or subscribers."
+msgstr "No. We only provide advertising and discovery on our own platform. We never sell views, watch time, likes or subscribers."
+
+msgid "Credits are an internal balance used to pay for ads on KSGP Video. They cannot be withdrawn as cash."
+msgstr "Credits are an internal balance used to pay for ads on KSGP Video. They cannot be withdrawn as cash."
+
+msgid "You create a campaign, reserve budget from your credits, and after approval your ad can appear on the platform. You pay for impressions (CPM) or clicks (CPC)."
+msgstr "You create a campaign, reserve budget from your credits, and after approval your ad can appear on the platform. You pay for impressions (CPM) or clicks (CPC)."
+
+msgid "Welcome to KSGP Video. By accessing or using our platform you agree to these Terms of Service."
+msgstr "Welcome to KSGP Video. By accessing or using our platform you agree to these Terms of Service."
+
+msgid "Last updated:"
+msgstr "Last updated:"
+
+msgid "Contact Us"
+msgstr "Contact Us"
+
+msgid "For support, legal or business inquiries please email:"
+msgstr "For support, legal or business inquiries please email:"
+
+msgid "We aim to respond within a few business days."
+msgstr "We aim to respond within a few business days."
+
+msgid "Available"
+msgstr "Available"
+
+msgid "Reserved"
+msgstr "Reserved"
+
+msgid "Lifetime Spent"
+msgstr "Lifetime Spent"
+
+msgid "Period Impressions"
+msgstr "Period Impressions"
+
+msgid "Period Clicks"
+msgstr "Period Clicks"
+
+msgid "Period Spend"
+msgstr "Period Spend"
+
+msgid "Daily Performance"
+msgstr "Daily Performance"
+
+msgid "Campaign Comparison"
+msgstr "Campaign Comparison"
+
+msgid "Impressions & Clicks Over Time"
+msgstr "Impressions & Clicks Over Time"
+
+msgid "Period Summary"
+msgstr "Period Summary"
+
+msgid "Creator Dashboard"
+msgstr "Creator Dashboard"
+
+msgid "Quick Actions"
+msgstr "Quick Actions"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Role"
+msgstr "Role"
+
+msgid "Profile Settings"
+msgstr "Profile Settings"
+
+msgid "Display Name"
+msgstr "Display Name"
+
+msgid "Bio"
+msgstr "Bio"
+
+msgid "Website"
+msgstr "Website"
+
+msgid "Location"
+msgstr "Location"
+
+msgid "Public profile"
+msgstr "Public profile"
+
+msgid "Save Changes"
+msgstr "Save Changes"
+
+msgid "Registered Channels"
+msgstr "Registered Channels"
+
+msgid "Videos Listed"
+msgstr "Videos Listed"
+
+msgid "Campaigns"
+msgstr "Campaigns"
+
+msgid "Featured Videos"
+msgstr "Featured Videos"
+
+msgid "Featured Creators"
+msgstr "Featured Creators"
+
+msgid "Popular Categories"
+msgstr "Popular Categories"
+
+msgid "Featured Promotions"
+msgstr "Featured Promotions"
+
+msgid "Why KSGP Video?"
+msgstr "Why KSGP Video?"
+
+msgid "Discover New Content"
+msgstr "Discover New Content"
+
+msgid "Targeted Advertising"
+msgstr "Targeted Advertising"
+
+msgid "Real Analytics"
+msgstr "Real Analytics"
+
+msgid "Ready to grow your audience?"
+msgstr "Ready to grow your audience?"
+
+msgid "Join creators who use KSGP Video to promote their content ethically and effectively."
+msgstr "Join creators who use KSGP Video to promote their content ethically and effectively."
+
+msgid "Create Free Account"
+msgstr "Create Free Account"
+
+msgid "View Advertising Plans"
+msgstr "View Advertising Plans"
+
+msgid "No featured videos yet. Be the first to promote your content!"
+msgstr "No featured videos yet. Be the first to promote your content!"
+
+msgid "Search videos..."
+msgstr "Search videos..."
+
+msgid "Previous"
+msgstr "Précédent"
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "No videos found."
+msgstr "No videos found."
+
+msgid "Visit on YouTube"
+msgstr "Visit on YouTube"
+
+msgid "Processing Payment"
+msgstr "Processing Payment"
+
+msgid "Your payment is being confirmed. Credits will appear shortly."
+msgstr "Your payment is being confirmed. Credits will appear shortly."
+
+msgid "Your advertising credits have been added to your wallet."
+msgstr "Your advertising credits have been added to your wallet."

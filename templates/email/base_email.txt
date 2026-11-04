@@ -1,0 +1,7 @@
+{% load i18n %}
+{% trans "Hello" %},
+
+{{ message }}
+
+— KSGP Video
+{% trans "This is an automated message. Please do not reply directly if not instructed." %}

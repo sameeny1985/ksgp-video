@@ -1,0 +1,21 @@
+{% extends "base/base.html" %}
+{% block title %}Block #{{ block.index }} | Admin{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <a href="{% url 'chain_explorer' %}" class="btn btn-sm btn-outline-secondary mb-3">← Back</a>
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white fw-semibold">Block #{{ block.index }}</div>
+    <div class="card-body">
+      <dl class="row small">
+        <dt class="col-sm-3">Event</dt><dd class="col-sm-9"><code>{{ block.event_type }}</code></dd>
+        <dt class="col-sm-3">Actor</dt><dd class="col-sm-9">{{ block.actor_email|default:"—" }} (id: {{ block.actor_id|default:"—" }})</dd>
+        <dt class="col-sm-3">Object</dt><dd class="col-sm-9">{{ block.object_type }} / {{ block.object_id }}</dd>
+        <dt class="col-sm-3">Prev hash</dt><dd class="col-sm-9"><code class="text-break">{{ block.prev_hash }}</code></dd>
+        <dt class="col-sm-3">Block hash</dt><dd class="col-sm-9"><code class="text-break">{{ block.block_hash }}</code></dd>
+        <dt class="col-sm-3">Timestamp</dt><dd class="col-sm-9">{{ block.timestamp }}</dd>
+        <dt class="col-sm-3">Payload</dt><dd class="col-sm-9"><pre class="bg-light p-2 rounded small">{{ block.payload }}</pre></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+{% endblock %}

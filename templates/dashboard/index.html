@@ -1,0 +1,199 @@
+{% extends "base/base.html" %}
+{% load i18n humanize static %}
+
+{% block title %}{% trans "Dashboard" %} | KSGP Video{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-2 col-md-3 mb-4">
+            <div class="list-group shadow-sm">
+                <a href="{% url 'dashboard:index' %}" class="list-group-item list-group-item-action active">
+                    <i class="bi bi-speedometer2 me-2"></i> {% trans "Overview" %}
+                </a>
+                <a href="{% url 'dashboard:channels' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-collection-play me-2"></i> {% trans "My Channels" %}
+                </a>
+                <a href="{% url 'dashboard:videos' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-film me-2"></i> {% trans "My Videos" %}
+                </a>
+                <a href="{% url 'dashboard:campaigns' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-megaphone me-2"></i> {% trans "My Campaigns" %}
+                </a>
+                <a href="{% url 'dashboard:wallet' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-wallet2 me-2"></i> {% trans "Wallet" %}
+                </a>
+                <a href="{% url 'analytics:dashboard' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-graph-up me-2"></i> {% trans "Analytics" %}
+                </a>
+                <a href="{% url 'dashboard:settings' %}" class="list-group-item list-group-item-action">
+                    <i class="bi bi-gear me-2"></i> {% trans "Settings" %}
+                </a>
+                <a href="{% url 'campaigns:create' %}" class="list-group-item list-group-item-action text-primary">
+                    <i class="bi bi-plus-circle me-2"></i> {% trans "New Campaign" %}
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-10 col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0">{% trans "Creator Dashboard" %}</h1>
+                <span class="badge bg-secondary">{{ user.get_role_display }}</span>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row g-3 mb-4">
+                <div class="col-6 col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="text-muted small">{% trans "Channels" %}</div>
+                            <div class="fs-2 fw-bold">{{ channels_count }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="text-muted small">{% trans "Videos" %}</div>
+                            <div class="fs-2 fw-bold">{{ videos_count }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="text-muted small">{% trans "Active Campaigns" %}</div>
+                            <div class="fs-2 fw-bold text-primary">{{ campaigns_active }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="card border-0 shadow-sm h-100 bg-success text-white">
+                        <div class="card-body">
+                            <div class="small opacity-75">{% trans "Available Credits" %}</div>
+                            <div class="fs-2 fw-bold">
+                                {% if wallet %}{{ wallet.available_balance|floatformat:2 }}{% else %}0.00{% endif %} €
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-muted small">{% trans "Total Impressions (Platform)" %}</div>
+                            <div class="fs-4 fw-bold">{{ total_impressions|intcomma }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-muted small">{% trans "Total Clicks (Platform)" %}</div>
+                            <div class="fs-4 fw-bold">{{ total_clicks|intcomma }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-muted small">{% trans "Campaigns Total" %}</div>
+                            <div class="fs-4 fw-bold">{{ campaigns_total }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-white d-flex justify-content-between">
+                            <strong>{% trans "Recent Channels" %}</strong>
+                            <a href="{% url 'dashboard:channels' %}" class="small">{% trans "View all" %}</a>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for ch in recent_channels %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>{{ ch.name|truncatechars:25 }}</span>
+                                <span class="badge bg-{% if ch.status == 'approved' %}success{% elif ch.status == 'pending' %}warning{% else %}secondary{% endif %}">
+                                    {{ ch.get_status_display }}
+                                </span>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item text-muted small">{% trans "No channels yet." %}</li>
+                            {% endfor %}
+                        </ul>
+                        <div class="card-footer bg-white">
+                            <a href="{% url 'channels:add' %}" class="btn btn-sm btn-outline-primary w-100">
+                                <i class="bi bi-plus"></i> {% trans "Add Channel" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-white d-flex justify-content-between">
+                            <strong>{% trans "Recent Videos" %}</strong>
+                            <a href="{% url 'dashboard:videos' %}" class="small">{% trans "View all" %}</a>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for v in recent_videos %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>{{ v.title|truncatechars:25 }}</span>
+                                <span class="badge bg-{% if v.status == 'approved' %}success{% elif v.status == 'pending' %}warning{% else %}secondary{% endif %}">
+                                    {{ v.get_status_display }}
+                                </span>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item text-muted small">{% trans "No videos yet." %}</li>
+                            {% endfor %}
+                        </ul>
+                        <div class="card-footer bg-white">
+                            <a href="{% url 'videos:add' %}" class="btn btn-sm btn-outline-primary w-100">
+                                <i class="bi bi-plus"></i> {% trans "Add Video" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-white d-flex justify-content-between">
+                            <strong>{% trans "Recent Campaigns" %}</strong>
+                            <a href="{% url 'dashboard:campaigns' %}" class="small">{% trans "View all" %}</a>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            {% for c in recent_campaigns %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>{{ c.name|truncatechars:22 }}</span>
+                                <span class="badge bg-{% if c.status == 'active' %}success{% elif c.status == 'pending_review' %}warning{% else %}secondary{% endif %}">
+                                    {{ c.get_status_display }}
+                                </span>
+                            </li>
+                            {% empty %}
+                            <li class="list-group-item text-muted small">{% trans "No campaigns yet." %}</li>
+                            {% endfor %}
+                        </ul>
+                        <div class="card-footer bg-white">
+                            <a href="{% url 'campaigns:create' %}" class="btn btn-sm btn-primary w-100">
+                                <i class="bi bi-plus"></i> {% trans "New Campaign" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-4 small">
+                <i class="bi bi-info-circle"></i>
+                {% trans "All metrics shown (impressions & clicks) are platform-only statistics from KSGP Video. They are not YouTube views or watch time." %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base/base.html" %}
+{% load i18n humanize %}
+{% block title %}{% trans "My Campaigns" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+<div class="row">
+<div class="col-lg-2 col-md-3 mb-3">
+<div class="list-group shadow-sm">
+<a href="{% url 'dashboard:index' %}" class="list-group-item list-group-item-action">{% trans "Overview" %}</a>
+<a href="{% url 'dashboard:channels' %}" class="list-group-item list-group-item-action">{% trans "My Channels" %}</a>
+<a href="{% url 'dashboard:videos' %}" class="list-group-item list-group-item-action">{% trans "My Videos" %}</a>
+<a href="{% url 'dashboard:campaigns' %}" class="list-group-item list-group-item-action active">{% trans "My Campaigns" %}</a>
+<a href="{% url 'dashboard:wallet' %}" class="list-group-item list-group-item-action">{% trans "Wallet" %}</a>
+<a href="{% url 'analytics:dashboard' %}" class="list-group-item list-group-item-action">{% trans "Analytics" %}</a>
+<a href="{% url 'dashboard:settings' %}" class="list-group-item list-group-item-action">{% trans "Settings" %}</a>
+</div>
+</div>
+<div class="col-lg-10 col-md-9">
+<div class="d-flex justify-content-between mb-4">
+<h1 class="h3">{% trans "My Campaigns" %}</h1>
+<a href="{% url 'campaigns:create' %}" class="btn btn-primary"><i class="bi bi-plus"></i> {% trans "New Campaign" %}</a>
+</div>
+<div class="table-responsive card shadow-sm border-0">
+<table class="table table-hover mb-0">
+<thead class="table-light">
+<tr>
+<th>{% trans "Name" %}</th>
+<th>{% trans "Type" %}</th>
+<th>{% trans "Status" %}</th>
+<th>{% trans "Budget" %}</th>
+<th>{% trans "Spent" %}</th>
+<th>{% trans "Impressions" %}</th>
+<th>{% trans "Clicks" %}</th>
+<th>{% trans "CTR" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for c in campaigns %}
+<tr>
+<td>{{ c.name }}</td>
+<td>{{ c.get_campaign_type_display }}</td>
+<td><span class="badge bg-{% if c.status == 'active' %}success{% elif c.status == 'pending_review' %}warning{% elif c.status == 'paused' %}info{% else %}secondary{% endif %}">{{ c.get_status_display }}</span></td>
+<td>{{ c.budget }} €</td>
+<td>{{ c.spent }} €</td>
+<td>{{ c.impressions|intcomma }}</td>
+<td>{{ c.clicks|intcomma }}</td>
+<td>{{ c.ctr }}%</td>
+</tr>
+{% empty %}
+<tr><td colspan="8" class="text-center text-muted py-4">{% trans "No campaigns yet." %}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

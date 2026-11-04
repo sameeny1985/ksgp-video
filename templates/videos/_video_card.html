@@ -1,0 +1,31 @@
+{% load i18n %}
+<div class="card video-card h-100 shadow-sm">
+    <a href="{{ video.get_absolute_url }}">
+        {% if video.thumbnail %}
+        <img src="{{ video.thumbnail.url }}" class="thumbnail card-img-top" alt="{{ video.title }}">
+        {% elif video.thumbnail_url %}
+        <img src="{{ video.thumbnail_url }}" class="thumbnail card-img-top" alt="{{ video.title }}">
+        {% else %}
+        <div class="thumbnail bg-secondary d-flex align-items-center justify-content-center">
+            <i class="bi bi-play-circle text-white display-4"></i>
+        </div>
+        {% endif %}
+    </a>
+    <div class="card-body">
+        {% if video.is_sponsored %}<span class="badge bg-warning text-dark mb-1">Sponsored</span>{% endif %}
+        <h6 class="card-title mb-1">
+            <a href="{{ video.get_absolute_url }}" class="text-decoration-none text-dark">{{ video.title|truncatechars:60 }}</a>
+        </h6>
+        <p class="small text-muted mb-2">
+            <a href="{{ video.channel.get_absolute_url }}" class="text-muted text-decoration-none">{{ video.channel.name }}</a>
+        </p>
+        <div class="d-flex gap-2">
+            <a href="{{ video.watch_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-danger">
+                <i class="bi bi-youtube"></i> {% trans "Watch on YouTube" %}
+            </a>
+            <a href="{{ video.get_absolute_url }}" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-info-circle"></i>
+            </a>
+        </div>
+    </div>
+</div>

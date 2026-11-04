@@ -1,0 +1,31 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Notifications" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-4">
+<div class="d-flex justify-content-between mb-4">
+<h1 class="h3">{% trans "Notifications" %}</h1>
+<form method="post" action="{% url 'notifications:mark_all_read' %}">{% csrf_token %}
+<button class="btn btn-sm btn-outline-secondary">{% trans "Mark all read" %}</button>
+</form>
+</div>
+<div class="list-group shadow-sm">
+{% for n in notifications %}
+<div class="list-group-item {% if not n.is_read %}list-group-item-primary{% endif %}">
+<div class="d-flex justify-content-between">
+<div>
+<strong>{{ n.title }}</strong>
+<p class="mb-1 small">{{ n.message }}</p>
+<small class="text-muted">{{ n.created_at }}</small>
+</div>
+{% if not n.is_read %}
+<form method="post" action="{% url 'notifications:mark_read' n.pk %}">{% csrf_token %}
+<button class="btn btn-sm btn-outline-primary">{% trans "Mark read" %}</button>
+</form>
+{% endif %}
+</div></div>
+{% empty %}
+<div class="list-group-item text-muted text-center">{% trans "No notifications." %}</div>
+{% endfor %}
+</div></div>
+{% endblock %}

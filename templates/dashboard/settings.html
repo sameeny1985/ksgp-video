@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+{% load i18n crispy_forms_tags %}
+{% block title %}{% trans "Settings" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+<div class="row">
+<div class="col-lg-2 col-md-3 mb-3">
+<div class="list-group shadow-sm">
+<a href="{% url 'dashboard:index' %}" class="list-group-item list-group-item-action">{% trans "Overview" %}</a>
+<a href="{% url 'dashboard:channels' %}" class="list-group-item list-group-item-action">{% trans "My Channels" %}</a>
+<a href="{% url 'dashboard:videos' %}" class="list-group-item list-group-item-action">{% trans "My Videos" %}</a>
+<a href="{% url 'dashboard:campaigns' %}" class="list-group-item list-group-item-action">{% trans "My Campaigns" %}</a>
+<a href="{% url 'dashboard:wallet' %}" class="list-group-item list-group-item-action">{% trans "Wallet" %}</a>
+<a href="{% url 'analytics:dashboard' %}" class="list-group-item list-group-item-action">{% trans "Analytics" %}</a>
+<a href="{% url 'dashboard:settings' %}" class="list-group-item list-group-item-action active">{% trans "Settings" %}</a>
+</div>
+</div>
+<div class="col-lg-10 col-md-9">
+<h1 class="h3 mb-4">{% trans "Profile Settings" %}</h1>
+<div class="card border-0 shadow-sm">
+<div class="card-body">
+<form method="post">
+{% csrf_token %}
+<div class="mb-3">
+<label class="form-label">{% trans "Display Name" %}</label>
+<input type="text" name="display_name" class="form-control" value="{{ form.display_name.value|default:'' }}">
+</div>
+<div class="mb-3">
+<label class="form-label">{% trans "Bio" %}</label>
+<textarea name="bio" class="form-control" rows="3">{{ form.bio.value|default:'' }}</textarea>
+</div>
+<div class="mb-3">
+<label class="form-label">{% trans "Website" %}</label>
+<input type="url" name="website" class="form-control" value="{{ form.website.value|default:'' }}">
+</div>
+<div class="mb-3">
+<label class="form-label">{% trans "Location" %}</label>
+<input type="text" name="location" class="form-control" value="{{ form.location.value|default:'' }}">
+</div>
+<div class="form-check mb-3">
+<input type="checkbox" name="is_public" class="form-check-input" id="is_public" {% if form.is_public.value %}checked{% endif %}>
+<label class="form-check-label" for="is_public">{% trans "Public profile" %}</label>
+</div>
+<button type="submit" class="btn btn-primary">{% trans "Save Changes" %}</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

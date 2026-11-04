@@ -1,0 +1,55 @@
+{% extends "base/base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ video.title }} | KSGP Video{% endblock %}
+{% block meta_description %}{{ video.description|truncatechars:155 }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                {% if video.thumbnail_url or video.thumbnail %}
+                <img src="{% if video.thumbnail %}{{ video.thumbnail.url }}{% else %}{{ video.thumbnail_url }}{% endif %}" class="card-img-top" alt="{{ video.title }}" style="max-height:400px;object-fit:cover;">
+                {% endif %}
+                <div class="card-body">
+                    {% if video.is_sponsored %}<span class="badge bg-warning text-dark mb-2">Sponsored</span>{% endif %}
+                    <h1 class="h3">{{ video.title }}</h1>
+                    <p class="text-muted">
+                        <a href="{{ video.channel.get_absolute_url }}">{{ video.channel.name }}</a>
+                        {% if video.category %} · {{ video.category.name }}{% endif %}
+                        · {{ video.language|upper }}
+                    </p>
+                    <p>{{ video.description|linebreaks }}</p>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <a href="{{ video.watch_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-danger">
+                            <i class="bi bi-youtube"></i> {% trans "Watch on YouTube" %}
+                        </a>
+                        <a href="{{ video.channel.youtube_url }}" target="_blank" rel="noopener" class="btn btn-outline-secondary">
+                            <i class="bi bi-person-video3"></i> {% trans "Visit Channel" %}
+                        </a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'videos:save' video.slug %}" class="btn btn-outline-primary">
+                            <i class="bi bi-bookmark"></i> {% trans "Save" %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{% trans "Channel" %}</h5>
+                    <p class="mb-1 fw-semibold">{{ video.channel.name }}</p>
+                    <p class="small text-muted">{{ video.channel.description|truncatewords:30 }}</p>
+                    <a href="{{ video.channel.get_absolute_url }}" class="btn btn-sm btn-outline-primary">{% trans "View Channel" %}</a>
+                </div>
+            </div>
+            <div class="alert alert-light small">
+                {% trans "Clicking Watch on YouTube takes you to the official YouTube page. KSGP Video does not host or autoplay videos and does not reward watching." %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

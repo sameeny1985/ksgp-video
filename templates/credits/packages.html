@@ -1,0 +1,26 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Credit Packages" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-5">
+<h1 class="h3 text-center mb-4">{% trans "Buy Advertising Credits" %}</h1>
+<div class="row g-4 justify-content-center">
+{% for p in object_list %}
+<div class="col-md-6 col-lg-3">
+<div class="card h-100 shadow-sm {% if p.is_featured %}border-primary{% endif %}">
+<div class="card-body text-center">
+{% if p.is_featured %}<span class="badge bg-primary mb-2">{% trans "Popular" %}</span>{% endif %}
+<h5>{{ p.name }}</h5>
+<div class="display-6 fw-bold my-3">{{ p.price }} €</div>
+<p class="text-muted">{{ p.credits }} {% trans "Credits" %}{% if p.bonus_credits %} + {{ p.bonus_credits }} {% trans "Bonus" %}{% endif %}</p>
+<p class="small">{{ p.description }}</p>
+<a href="{% url 'payments:checkout' p.slug %}" class="btn {% if p.is_featured %}btn-primary{% else %}btn-outline-primary{% endif %} w-100">{% trans "Buy Now" %}</a>
+</div>
+</div>
+</div>
+{% empty %}
+<div class="col-12 text-center text-muted">{% trans "No packages available." %}</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

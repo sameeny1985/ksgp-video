@@ -1,0 +1,71 @@
+{% extends "base/base.html" %}
+{% load i18n humanize %}
+{% block title %}{% trans "Wallet" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+<div class="row">
+<div class="col-lg-2 col-md-3 mb-3">
+<div class="list-group shadow-sm">
+<a href="{% url 'dashboard:index' %}" class="list-group-item list-group-item-action">{% trans "Overview" %}</a>
+<a href="{% url 'dashboard:channels' %}" class="list-group-item list-group-item-action">{% trans "My Channels" %}</a>
+<a href="{% url 'dashboard:videos' %}" class="list-group-item list-group-item-action">{% trans "My Videos" %}</a>
+<a href="{% url 'dashboard:campaigns' %}" class="list-group-item list-group-item-action">{% trans "My Campaigns" %}</a>
+<a href="{% url 'dashboard:wallet' %}" class="list-group-item list-group-item-action active">{% trans "Wallet" %}</a>
+<a href="{% url 'analytics:dashboard' %}" class="list-group-item list-group-item-action">{% trans "Analytics" %}</a>
+<a href="{% url 'dashboard:settings' %}" class="list-group-item list-group-item-action">{% trans "Settings" %}</a>
+</div>
+</div>
+<div class="col-lg-10 col-md-9">
+<h1 class="h3 mb-4">{% trans "Advertising Credits Wallet" %}</h1>
+<div class="row g-3 mb-4">
+<div class="col-md-4">
+<div class="card bg-success text-white border-0 shadow-sm">
+<div class="card-body">
+<div class="small opacity-75">{% trans "Available" %}</div>
+<div class="display-6 fw-bold">{% if wallet %}{{ wallet.available_balance|floatformat:2 }}{% else %}0.00{% endif %} €</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card border-0 shadow-sm">
+<div class="card-body">
+<div class="small text-muted">{% trans "Reserved" %}</div>
+<div class="fs-3 fw-bold">{% if wallet %}{{ wallet.reserved|floatformat:2 }}{% else %}0.00{% endif %} €</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card border-0 shadow-sm">
+<div class="card-body">
+<div class="small text-muted">{% trans "Lifetime Spent" %}</div>
+<div class="fs-3 fw-bold">{% if wallet %}{{ wallet.lifetime_spent|floatformat:2 }}{% else %}0.00{% endif %} €</div>
+</div>
+</div>
+</div>
+</div>
+<a href="{% url 'credits:packages' %}" class="btn btn-primary mb-4"><i class="bi bi-plus"></i> {% trans "Buy Credits" %}</a>
+<div class="card border-0 shadow-sm">
+<div class="card-header bg-white fw-semibold">{% trans "Recent Transactions" %}</div>
+<div class="table-responsive">
+<table class="table table-sm mb-0">
+<thead><tr><th>{% trans "Date" %}</th><th>{% trans "Type" %}</th><th>{% trans "Amount" %}</th><th>{% trans "Balance After" %}</th><th>{% trans "Description" %}</th></tr></thead>
+<tbody>
+{% for t in transactions %}
+<tr>
+<td>{{ t.created_at|date:"Y-m-d H:i" }}</td>
+<td>{{ t.get_transaction_type_display }}</td>
+<td class="{% if t.amount > 0 %}text-success{% else %}text-danger{% endif %}">{{ t.amount }} €</td>
+<td>{{ t.balance_after }} €</td>
+<td class="small">{{ t.description|truncatechars:40 }}</td>
+</tr>
+{% empty %}
+<tr><td colspan="5" class="text-center text-muted py-3">{% trans "No transactions yet." %}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

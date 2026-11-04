@@ -1,0 +1,128 @@
+{% extends "base/base.html" %}
+{% load i18n humanize %}
+{% block title %}{% trans "Analytics" %} | KSGP Video{% endblock %}
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+<div class="row">
+<div class="col-lg-2 col-md-3 mb-3">
+<div class="list-group shadow-sm">
+<a href="{% url 'dashboard:index' %}" class="list-group-item list-group-item-action">{% trans "Overview" %}</a>
+<a href="{% url 'dashboard:channels' %}" class="list-group-item list-group-item-action">{% trans "My Channels" %}</a>
+<a href="{% url 'dashboard:videos' %}" class="list-group-item list-group-item-action">{% trans "My Videos" %}</a>
+<a href="{% url 'dashboard:campaigns' %}" class="list-group-item list-group-item-action">{% trans "My Campaigns" %}</a>
+<a href="{% url 'dashboard:wallet' %}" class="list-group-item list-group-item-action">{% trans "Wallet" %}</a>
+<a href="{% url 'analytics:dashboard' %}" class="list-group-item list-group-item-action active">{% trans "Analytics" %}</a>
+<a href="{% url 'dashboard:settings' %}" class="list-group-item list-group-item-action">{% trans "Settings" %}</a>
+</div>
+</div>
+<div class="col-lg-10 col-md-9">
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+<h1 class="h3 mb-0">{% trans "Campaign Analytics" %}</h1>
+<div class="d-flex gap-2">
+<form method="get" class="d-flex gap-1">
+<select name="days" class="form-select form-select-sm" onchange="this.form.submit()">
+<option value="7" {% if days == 7 %}selected{% endif %}>7 {% trans "days" %}</option>
+<option value="14" {% if days == 14 %}selected{% endif %}>14 {% trans "days" %}</option>
+<option value="30" {% if days == 30 %}selected{% endif %}>30 {% trans "days" %}</option>
+<option value="90" {% if days == 90 %}selected{% endif %}>90 {% trans "days" %}</option>
+</select>
+</form>
+<a href="{% url 'analytics:export_csv' %}" class="btn btn-sm btn-outline-success"><i class="bi bi-download"></i> CSV</a>
+</div>
+</div>
+
+<div class="row g-3 mb-4">
+<div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-muted">{% trans "Total Impressions" %}</div><div class="fs-3 fw-bold">{{ total_impressions|intcomma }}</div></div></div></div>
+<div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-muted">{% trans "Total Clicks" %}</div><div class="fs-3 fw-bold">{{ total_clicks|intcomma }}</div></div></div></div>
+<div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-muted">{% trans "Average CTR" %}</div><div class="fs-3 fw-bold">{{ avg_ctr }}%</div></div></div></div>
+<div class="col-6 col-md-3"><div class="card border-0 shadow-sm"><div class="card-body"><div class="small text-muted">{% trans "Total Spent" %}</div><div class="fs-3 fw-bold">{{ total_spent }} €</div></div></div></div>
+</div>
+
+<div class="row g-4 mb-4">
+<div class="col-lg-8">
+<div class="card border-0 shadow-sm h-100">
+<div class="card-header bg-white fw-semibold">{% trans "Impressions & Clicks Over Time" %}</div>
+<div class="card-body"><canvas id="lineChart" height="120"></canvas></div>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="card border-0 shadow-sm h-100">
+<div class="card-header bg-white fw-semibold">{% trans "Period Summary" %}</div>
+<div class="card-body">
+<p class="mb-2"><strong>{% trans "Impressions" %}:</strong> {{ period_impressions|intcomma }}</p>
+<p class="mb-2"><strong>{% trans "Clicks" %}:</strong> {{ period_clicks|intcomma }}</p>
+<p class="mb-0"><strong>{% trans "Spend" %}:</strong> {{ period_spend|floatformat:2 }} €</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+<div class="card-header bg-white fw-semibold">{% trans "Campaign Comparison" %}</div>
+<div class="card-body"><canvas id="barChart" height="100"></canvas></div>
+</div>
+
+<div class="card border-0 shadow-sm">
+<div class="card-header bg-white fw-semibold">{% trans "Campaign Performance" %}</div>
+<div class="table-responsive">
+<table class="table table-hover mb-0">
+<thead class="table-light">
+<tr>
+<th>{% trans "Campaign" %}</th><th>{% trans "Status" %}</th><th>{% trans "Impressions" %}</th>
+<th>{% trans "Clicks" %}</th><th>{% trans "CTR" %}</th><th>{% trans "Spent" %}</th>
+<th>{% trans "Budget" %}</th><th>{% trans "Remaining" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for s in campaign_stats %}
+<tr>
+<td>{{ s.name }}</td><td>{{ s.status }}</td><td>{{ s.impressions|intcomma }}</td>
+<td>{{ s.clicks|intcomma }}</td><td>{{ s.ctr }}%</td><td>{{ s.spent }} €</td>
+<td>{{ s.budget }} €</td><td>{{ s.remaining }} €</td>
+</tr>
+{% empty %}
+<tr><td colspan="8" class="text-center text-muted py-4">{% trans "No campaigns yet." %}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+<div class="alert alert-info mt-3 small">{% trans "All metrics are platform-only (KSGP Video impressions & clicks), not YouTube analytics." %}</div>
+</div>
+</div>
+</div>
+
+<script>
+const lineCtx = document.getElementById('lineChart');
+if (lineCtx) {
+  new Chart(lineCtx, {
+    type: 'line',
+    data: {
+      labels: {{ chart_labels|safe }},
+      datasets: [
+        { label: 'Impressions', data: {{ chart_impressions|safe }}, borderColor: '#4f46e5', tension: 0.3, fill: false },
+        { label: 'Clicks', data: {{ chart_clicks|safe }}, borderColor: '#10b981', tension: 0.3, fill: false }
+      ]
+    },
+    options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
+  });
+}
+const barCtx = document.getElementById('barChart');
+if (barCtx) {
+  new Chart(barCtx, {
+    type: 'bar',
+    data: {
+      labels: {{ bar_labels|safe }},
+      datasets: [
+        { label: 'Impressions', data: {{ bar_impressions|safe }}, backgroundColor: '#4f46e5' },
+        { label: 'Clicks', data: {{ bar_clicks|safe }}, backgroundColor: '#10b981' }
+      ]
+    },
+    options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true } } }
+  });
+}
+</script>
+{% endblock %}

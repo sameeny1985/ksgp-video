@@ -1,0 +1,210 @@
+{% extends "base/base.html" %}
+{% load static i18n humanize %}
+
+{% block title %}{% trans "Discover Videos. Connect with Creators. Promote Your Content." %} | KSGP Video{% endblock %}
+
+{% block content %}
+<!-- Hero with Coin Logo 240x240 centered -->
+<section class="hero-section text-center py-5 bg-gradient-primary text-white">
+    <div class="container">
+        <div class="mb-4">
+            <img src="{% static 'images/ksgp_coin.png' %}" 
+                 alt="KSGP Coin Logo" 
+                 width="240" 
+                 height="240" 
+                 class="rounded-circle shadow-lg border border-4 border-warning"
+                 style="object-fit: cover; background: #1a1a2e;">
+        </div>
+        <h1 class="display-4 fw-bold mb-3">
+            {% trans "Discover Videos. Connect with Creators. Promote Your Content." %}
+        </h1>
+        <p class="lead mb-4 col-lg-8 mx-auto">
+            {% trans "A platform designed to help creators showcase their videos, reach relevant audiences and grow their online presence through targeted advertising." %}
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            <a href="{% url 'videos:list' %}" class="btn btn-light btn-lg px-4">
+                <i class="bi bi-play-circle"></i> {% trans "Explore Videos" %}
+            </a>
+            <a href="{% url 'campaigns:pricing' %}" class="btn btn-warning btn-lg px-4">
+                <i class="bi bi-megaphone"></i> {% trans "Promote Your Content" %}
+            </a>
+            <a href="{% url 'account_signup' %}" class="btn btn-outline-light btn-lg px-4">
+                <i class="bi bi-person-plus"></i> {% trans "Join as a Creator" %}
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Platform Stats -->
+<section class="py-4 bg-light border-bottom">
+    <div class="container">
+        <div class="row text-center g-3">
+            <div class="col-6 col-md-3">
+                <div class="display-6 fw-bold text-primary">{{ stats.channels|intcomma }}</div>
+                <div class="text-muted small">{% trans "Registered Channels" %}</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="display-6 fw-bold text-success">{{ stats.videos|intcomma }}</div>
+                <div class="text-muted small">{% trans "Videos Listed" %}</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="display-6 fw-bold text-warning">{{ stats.campaigns|intcomma }}</div>
+                <div class="text-muted small">{% trans "Active Campaigns" %}</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="display-6 fw-bold text-info">{{ stats.creators|intcomma }}</div>
+                <div class="text-muted small">{% trans "Creators & Advertisers" %}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+{% if categories %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="h3 mb-4 text-center">{% trans "Popular Categories" %}</h2>
+        <div class="row g-3">
+            {% for cat in categories %}
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="{% url 'videos:category' cat.slug %}" class="card category-card h-100 text-decoration-none text-dark shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="display-6 mb-2" style="color: {{ cat.color }};">
+                            <i class="bi {{ cat.icon|default:'bi-folder' }}"></i>
+                        </div>
+                        <h6 class="card-title mb-0">{{ cat.name }}</h6>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Sponsored / Featured Ads -->
+{% if sponsored %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="h3 mb-4">
+            <span class="badge bg-warning text-dark me-2">Sponsored</span>
+            {% trans "Featured Promotions" %}
+        </h2>
+        <div class="row g-4">
+            {% for camp in sponsored %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-warning shadow-sm">
+                    <div class="card-body">
+                        <span class="badge bg-warning text-dark mb-2">Sponsored</span>
+                        <h5 class="card-title">{{ camp.ad_title }}</h5>
+                        <p class="card-text small text-muted">{{ camp.ad_description|truncatewords:20 }}</p>
+                        {% if camp.video %}
+                        <a href="{{ camp.video.watch_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-youtube"></i> {% trans "Watch on YouTube" %}
+                        </a>
+                        {% elif camp.channel %}
+                        <a href="{{ camp.channel.youtube_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-youtube"></i> {% trans "Visit Channel" %}
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Videos -->
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h3 mb-0">{% trans "Featured Videos" %}</h2>
+            <a href="{% url 'videos:list' %}" class="btn btn-outline-primary btn-sm">{% trans "View All" %}</a>
+        </div>
+        <div class="row g-4">
+            {% for video in featured_videos %}
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                {% include "videos/_video_card.html" with video=video %}
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted py-5">
+                <i class="bi bi-film display-4"></i>
+                <p class="mt-3">{% trans "No featured videos yet. Be the first to promote your content!" %}</p>
+                <a href="{% url 'account_signup' %}" class="btn btn-primary">{% trans "Join Now" %}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Channels -->
+{% if featured_channels %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="h3 mb-4">{% trans "Featured Creators" %}</h2>
+        <div class="row g-4">
+            {% for channel in featured_channels %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 text-center shadow-sm">
+                    <div class="card-body">
+                        {% if channel.avatar %}
+                        <img src="{{ channel.avatar.url }}" class="rounded-circle mb-3" width="80" height="80" alt="{{ channel.name }}">
+                        {% else %}
+                        <div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width:80px;height:80px;">
+                            <i class="bi bi-person fs-2"></i>
+                        </div>
+                        {% endif %}
+                        <h5 class="card-title">{{ channel.name }}</h5>
+                        <p class="small text-muted">{{ channel.description|truncatewords:15 }}</p>
+                        <a href="{{ channel.get_absolute_url }}" class="btn btn-sm btn-outline-primary">{% trans "View Channel" %}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Features / Benefits -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="h3 text-center mb-5">{% trans "Why KSGP Video?" %}</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 text-primary mb-3"><i class="bi bi-search"></i></div>
+                    <h5>{% trans "Discover New Content" %}</h5>
+                    <p class="text-muted">{% trans "Find high-quality videos and channels across multiple categories and languages." %}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 text-success mb-3"><i class="bi bi-megaphone"></i></div>
+                    <h5>{% trans "Targeted Advertising" %}</h5>
+                    <p class="text-muted">{% trans "Promote your videos and channels to relevant audiences with transparent pricing (CPM/CPC)." %}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 text-warning mb-3"><i class="bi bi-graph-up"></i></div>
+                    <h5>{% trans "Real Analytics" %}</h5>
+                    <p class="text-muted">{% trans "Track real platform impressions and clicks. No fake engagement, no YouTube metric manipulation." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5 bg-primary text-white text-center">
+    <div class="container">
+        <h2 class="h3 mb-3">{% trans "Ready to grow your audience?" %}</h2>
+        <p class="lead mb-4">{% trans "Join creators who use KSGP Video to promote their content ethically and effectively." %}</p>
+        <a href="{% url 'account_signup' %}" class="btn btn-light btn-lg me-2">{% trans "Create Free Account" %}</a>
+        <a href="{% url 'campaigns:pricing' %}" class="btn btn-outline-light btn-lg">{% trans "View Advertising Plans" %}</a>
+    </div>
+</section>
+{% endblock %}

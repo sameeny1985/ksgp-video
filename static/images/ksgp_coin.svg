@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <circle cx="120" cy="120" r="110" fill="#f59e0b" stroke="#b45309" stroke-width="8"/>
+  <circle cx="120" cy="120" r="90" fill="#fbbf24" stroke="#d97706" stroke-width="4"/>
+  <text x="120" y="110" font-family="Arial,sans-serif" font-size="28" font-weight="bold" fill="#1e1b4b" text-anchor="middle">KSGP</text>
+  <text x="120" y="145" font-family="Arial,sans-serif" font-size="18" fill="#1e1b4b" text-anchor="middle">VIDEO</text>
+</svg>

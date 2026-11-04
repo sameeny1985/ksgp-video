@@ -1,0 +1,11 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Contact" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-5">
+<h1 class="h2 mb-4">{% trans "Contact Us" %}</h1>
+<div class="card border-0 shadow-sm"><div class="card-body">
+<p>{% trans "For support, legal or business inquiries please email:" %} <strong>support@ksgpvideo.com</strong></p>
+<p class="text-muted small">{% trans "We aim to respond within a few business days." %}</p>
+</div></div></div>
+{% endblock %}

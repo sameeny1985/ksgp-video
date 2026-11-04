@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Cookie Policy" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-5">
+<h1 class="h2 mb-4">{% trans "Cookie Policy" %}</h1>
+<div class="card border-0 shadow-sm"><div class="card-body">
+<p>{% trans "We use cookies and similar technologies to operate the site, keep you logged in, remember language preference and measure basic usage." %}</p>
+<ul>
+<li><strong>{% trans "Essential" %}</strong> – {% trans "authentication, security, load balancing" %}</li>
+<li><strong>{% trans "Preferences" %}</strong> – {% trans "language and UI settings" %}</li>
+<li><strong>{% trans "Analytics" %}</strong> – {% trans "aggregated, privacy-friendly statistics" %}</li>
+</ul>
+<p>{% trans "You can control cookies through your browser settings." %}</p>
+</div></div></div>
+{% endblock %}

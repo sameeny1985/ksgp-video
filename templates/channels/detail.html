@@ -1,0 +1,12 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{{ channel.name }} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-4">
+<div class="card border-0 shadow-sm">
+<div class="card-body">
+<h1 class="h3">{{ channel.name }}</h1>
+<p class="text-muted">{{ channel.description }}</p>
+<a href="{{ channel.youtube_url }}" target="_blank" rel="noopener" class="btn btn-danger"><i class="bi bi-youtube"></i> {% trans "Visit on YouTube" %}</a>
+</div></div></div>
+{% endblock %}
