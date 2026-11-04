@@ -33,7 +33,6 @@ urlpatterns += i18n_patterns(
     path('accounts/', include('allauth.urls')),
     path('', home, name='home'),
     path('api/', include('apps.core.api_urls')),
-    path('users/', include('apps.users.urls')),
     path('channels/', include('apps.channels.urls')),
     path('videos/', include('apps.videos.urls')),
     path('campaigns/', include('apps.campaigns.urls')),
