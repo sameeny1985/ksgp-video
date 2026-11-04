@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Report Content" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="row justify-content-center"><div class="col-lg-6">
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-white fw-semibold">{% trans "Report Content" %}</div>
+      <div class="card-body">
+        <form method="post">{% csrf_token %}
+          {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+          </div>
+          {% endfor %}
+          <button class="btn btn-primary" type="submit">{% trans "Submit" %}</button>
+        </form>
+      </div>
+    </div>
+  </div></div>
+</div>
+{% endblock %}
