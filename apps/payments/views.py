@@ -138,7 +138,6 @@ def _handle_checkout_completed(session):
     payment_id = metadata.get('payment_id')
     if not payment_id:
         return
-
     try:
         with transaction.atomic():
             payment = Payment.objects.select_for_update().get(id=payment_id)
@@ -152,21 +151,25 @@ def _handle_checkout_completed(session):
 
             wallet, _ = CreditWallet.objects.select_for_update().get_or_create(user=payment.user)
             credits = payment.credits_granted or Decimal('0')
+
             if credits > 0:
-                try:
-                    from apps.notifications.services import notify_payment_success
-                    notify_payment_success(payment.user, payment.amount, credits)
-            except Exception:
-                pass
-            wallet.credit(
+                wallet.credit(
                     amount=credits,
                     description=f'Purchase: {payment.package.name if payment.package else "Credits"}',
                     source='purchase',
                     idempotency_key=f'stripe-{payment.id}',
                     payment=payment,
                 )
+
+                try:
+                    from apps.notifications.services import notify_payment_success
+                    notify_payment_success(payment.user, payment.amount, credits)
+                except Exception as notification_error:
+                    print(f'Payment notification error: {notification_error}')
+
     except Payment.DoesNotExist:
         pass
     except Exception as e:
         # Log in real deployment
         print(f'Webhook error: {e}')
+
