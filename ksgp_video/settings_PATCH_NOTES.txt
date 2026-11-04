@@ -1,0 +1,37 @@
+APPLY THESE CHANGES IN ksgp_video/settings.py:
+
+1) After ALLOWED_HOSTS, add:
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=[
+    'https://ksgp.onrender.com',
+    'https://*.onrender.com',
+])
+
+2) Replace STATICFILES_STORAGE line with:
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+3) Replace LOGGING file handler section so production does not crash without writable logs:
+Remove the 'file' handler from apps logger OR wrap logs dir creation and only use console:
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {'format': '{levelname} {asctime} {module} {message}', 'style': '{'},
+    },
+    'handlers': {
+        'console': {'class': 'logging.StreamHandler', 'formatter': 'verbose'},
+    },
+    'root': {'handlers': ['console'], 'level': 'INFO'},
+    'loggers': {
+        'django': {'handlers': ['console'], 'level': 'INFO', 'propagate': False},
+        'apps': {'handlers': ['console'], 'level': 'INFO', 'propagate': False},
+    },
+}
+
+4) Cache: if REDIS_URL is empty/default and DEBUG is False, LocMem is safer when Redis not linked:
+Use:
+_redis = env('REDIS_URL', default='')
+if _redis and _redis.startswith('redis'):
+    CACHES = {'default': {'BACKEND': 'django.core.cache.backends.redis.RedisCache', 'LOCATION': _redis}}
+else:
+    CACHES = {'default': {'BACKEND': 'django.core.cache.backends.locmem.LocMemCache', 'LOCATION': 'ksgp'}}
