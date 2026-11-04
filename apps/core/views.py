@@ -87,4 +87,3 @@ def health_check(request):
     }, status=status)
 
 
-@login_required
