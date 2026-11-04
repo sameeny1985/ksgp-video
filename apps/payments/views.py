@@ -154,8 +154,8 @@ def _handle_checkout_completed(session):
             credits = payment.credits_granted or Decimal('0')
             if credits > 0:
                 try:
-                from apps.notifications.services import notify_payment_success
-                notify_payment_success(payment.user, payment.amount, credits)
+                    from apps.notifications.services import notify_payment_success
+                    notify_payment_success(payment.user, payment.amount, credits)
             except Exception:
                 pass
             wallet.credit(
