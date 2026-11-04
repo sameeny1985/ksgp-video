@@ -1,0 +1,18 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "My Reports" %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h1 class="h4 mb-3">{% trans "My Reports" %}</h1>
+  <div class="list-group shadow-sm">
+    {% for r in reports %}
+    <div class="list-group-item">
+      <strong>{{ r.get_reason_display }}</strong> — {{ r.get_status_display }}
+      <div class="small text-muted">{{ r.created_at }} · {{ r.object_type }} {{ r.object_id }}</div>
+    </div>
+    {% empty %}
+    <div class="list-group-item text-muted">{% trans "No reports." %}</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
