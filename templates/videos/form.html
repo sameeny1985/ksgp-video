@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% if object %}{% trans "Edit Video" %}{% else %}{% trans "Add Video" %}{% endif %} | KSGP Video{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white fw-semibold">
+          {% if object %}{% trans "Edit Video" %}{% else %}{% trans "Add Video" %}{% endif %}
+        </div>
+        <div class="card-body">
+          <div class="alert alert-info small mb-3">
+            {% trans "Only paste the YouTube link. Title and thumbnail are set automatically from YouTube." %}
+          </div>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+              <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+              {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">
+              {% if object %}{% trans "Save" %}{% else %}{% trans "Submit for review" %}{% endif %}
+            </button>
+            <a href="{% url 'dashboard:videos' %}" class="btn btn-outline-secondary">{% trans "Cancel" %}</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
