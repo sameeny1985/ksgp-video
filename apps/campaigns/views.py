@@ -128,15 +128,26 @@ class CampaignCreateView(LoginRequiredMixin, CreateView):
 
         form.fields['video'].required = False
         form.fields['channel'].required = False
+        form.fields['start_date'].required = False
+        form.fields['end_date'].required = False
         form.fields['daily_budget'].required = False
 
-        now = timezone.localtime().strftime('%Y-%m-%dT%H:%M')
+        for field_name in ('start_date', 'end_date'):
+            field = form.fields[field_name]
 
-        form.fields['start_date'].widget.attrs['min'] = now
-        form.fields['end_date'].widget.attrs['min'] = now
+            field.widget = forms.DateTimeInput(
+                format='%Y-%m-%dT%H:%M',
+                attrs={
+                    'type': 'datetime-local',
+                    'class': 'form-control',
+                    'step': '60',
+                    'style': 'width:100%; min-height:45px;',
+                }
+            )
+
+            field.input_formats = ['%Y-%m-%dT%H:%M']
 
         return form
-
     def form_valid(self, form):
         user = self.request.user
 
