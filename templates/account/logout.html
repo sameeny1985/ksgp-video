@@ -1,0 +1,19 @@
+{% extends "account/base_account.html" %}
+{% load i18n %}
+{% block title %}{% trans "Sign Out" %} | KSGP Video{% endblock %}
+{% block account_content %}
+<h2 class="h5 mb-3">{% trans "Sign Out" %}</h2>
+<p class="text-muted">{% trans "Signing you out…" %}</p>
+<form method="post" action="{% url 'account_logout' %}" id="logout-form">
+  {% csrf_token %}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+  {% else %}
+  <input type="hidden" name="next" value="/">
+  {% endif %}
+  <button type="submit" class="btn btn-danger w-100">{% trans "Sign Out" %}</button>
+</form>
+<script>
+  document.getElementById('logout-form').submit();
+</script>
+{% endblock %}
