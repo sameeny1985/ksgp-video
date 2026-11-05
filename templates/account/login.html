@@ -1,0 +1,40 @@
+{% extends "account/base_account.html" %}
+{% load i18n static %}
+{% block title %}{% trans "Sign In" %} | KSGP Video{% endblock %}
+{% block account_content %}
+<h2 class="h5 mb-3">{% trans "Sign In" %}</h2>
+
+<a href="/accounts/google/login/" class="btn btn-outline-dark w-100 mb-3">
+  {% trans "Continue with Google" %}
+</a>
+<div class="text-center text-muted small mb-3">{% trans "or use email" %}</div>
+
+<form method="post" action="/accounts/login/">
+  {% csrf_token %}
+  {% if form.errors %}
+  <div class="alert alert-danger small">
+    {% for field, errors in form.errors.items %}
+      {% for error in errors %}<div>{{ error }}</div>{% endfor %}
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="mb-3">
+    <label class="form-label" for="id_login">{% trans "Email" %}</label>
+    <input type="email" name="login" id="id_login" class="form-control" required autocomplete="email" autofocus>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="id_password">{% trans "Password" %}</label>
+    <input type="password" name="password" id="id_password" class="form-control" required autocomplete="current-password">
+  </div>
+  <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" name="remember" id="id_remember">
+    <label class="form-check-label" for="id_remember">{% trans "Remember me" %}</label>
+  </div>
+  <button type="submit" class="btn btn-primary w-100">{% trans "Sign In" %}</button>
+</form>
+<p class="small text-center mt-3 mb-0">
+  <a href="/accounts/password/reset/">{% trans "Forgot password?" %}</a>
+  ·
+  <a href="/accounts/signup/">{% trans "Create account" %}</a>
+</p>
+{% endblock %}
