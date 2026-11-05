@@ -246,7 +246,7 @@ def fulfill_payment_for_session(session, user=None):
                 return Decimal('0'), 'Stripe payment amount does not match the payment record.'
 
         with transaction.atomic():
-            payment = Payment.objects.select_for_update().select_related('package').get(id=payment.id)
+            payment = Payment.objects.select_for_update().get(id=payment.id)
 
             if payment.status == Payment.Status.SUCCEEDED:
                 return payment.credits_granted or Decimal('0'), ''
